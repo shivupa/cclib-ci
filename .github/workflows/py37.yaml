@@ -3,7 +3,7 @@ name: py37img
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 
 jobs:
   docker:
