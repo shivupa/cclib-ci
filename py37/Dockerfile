@@ -7,6 +7,8 @@ MAINTAINER Shiv Upadhyay <shivnupadhyay@gmail.com>
 RUN apt-get update
 RUN apt-get install -y -qq git swig wget gcc
 RUN conda install python=3.7
+RUN which python
+RUN which pip
 RUN conda --version \
     && conda config --add channels conda-forge \
     && conda config --add channels http://conda.anaconda.org/psi4 \
