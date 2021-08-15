@@ -1,16 +1,12 @@
-# create new
-
-FROM continuumio/miniconda3:latest
+FROM condaforge/miniforge3:latest
 
 MAINTAINER Shiv Upadhyay <shivnupadhyay@gmail.com>
 
 RUN apt-get update
 RUN apt-get install -y -qq git swig wget gcc
 RUN conda install python=3.7
-RUN which python
-RUN which pip
+RUN command -v python
 RUN conda --version \
-    && conda config --add channels conda-forge \
     && conda config --add channels http://conda.anaconda.org/psi4 \
     && conda config --set always_yes true --set changeps1 false --set channel_priority flexible --set quiet true \
     && conda info -a
@@ -20,7 +16,11 @@ RUN wget \
 RUN conda install numpy scipy
 RUN python -m pip install -r requirements.txt
 RUN rm -f requirements.txt
-RUN conda install ci-psi4 psi4 openbabel pytest-cov pytest-shutil h5py \
+RUN conda install ci-psi4 psi4 openbabel pytest-cov pytest-shutil h5py==2.10 \
     && python -m pip install pyscf \
     && python -m pip install qc-iodata \
     && conda list
+RUN rm -rf ~/.cache/pip
+RUN rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["/usr/bin/env"]
