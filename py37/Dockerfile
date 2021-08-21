@@ -13,7 +13,8 @@ RUN apt-get update && \
       git \
       gcc \
       swig \
-      wget
+      wget \
+      curl
 RUN wget \
     https://raw.githubusercontent.com/cclib/cclib/master/requirements.txt \
     && cat requirements.txt
