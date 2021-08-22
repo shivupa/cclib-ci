@@ -1,0 +1,17 @@
+---
+channels:
+  - psi4
+  - conda-forge
+  - defaults
+dependencies:
+  - ci-psi4
+  - h5py=2.10
+  - openbabel
+  - pip
+  - psi4
+  - pytest-cov
+  - pytest-shutil
+  - python=3.9
+  - pip:
+      - pyscf
+      - qc-iodata
