@@ -1,32 +1,35 @@
-FROM condaforge/mambaforge:latest
+FROM condaforge/mambaforge:latest as conda
 
-MAINTAINER Shiv Upadhyay <shivnupadhyay@gmail.com>
+LABEL authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
 
-COPY ./condarc $HOME/.condarc
+COPY ./condarc /root/.condarc
 COPY ./environment.yml /tmp/
 
-RUN mamba info -a && \
-    mamba env create -n cclib -f /tmp/environment.yml
+RUN mamba info -a
+RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create -f /tmp/environment.yml -p /env
 
 RUN apt-get update && \
     apt-get install -y -qq \
-      git \
+      curl \
       gcc \
+      git \
       swig \
-      wget \
-      curl
+      wget
 RUN wget \
     https://raw.githubusercontent.com/cclib/cclib/master/requirements.txt \
     && cat requirements.txt
-RUN echo ". /opt/conda/etc/profile.d/conda.sh && conda activate cclib" > ~/.bashrc
-SHELL ["/bin/bash", "-l", "-c"]
-RUN which python
-RUN python -m pip install -r requirements.txt
+RUN conda run -p /env python -m pip install -r requirements.txt
 
 RUN rm -f /tmp/environment.yml
 RUN rm -f requirements.txt
-RUN rm -rf $HOME/.cache/pip
+RUN rm -rf /root/.cache/pip
 RUN rm -rf /var/lib/apt/lists/*
-RUN mamba clean --all
 
-ENTRYPOINT ["/usr/bin/env"]
+RUN rm -f /env/bin/perl
+RUN rm -f /env/bin/perl5.30.0
+RUN rm -rf /env/conda-meta
+RUN rm -rf /env/lib/python3.7/site-packages/pip
+RUN rm -rf /env/share/man
+RUN rm -rf /env/share/terminfo
+RUN find /env -name '__pycache__' -type d -exec rm -rf '{}' '+'
+RUN find /env -name '*.a' -type f -exec rm -f '{}' '+'
