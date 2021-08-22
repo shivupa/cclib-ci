@@ -28,7 +28,6 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN rm -f /env/bin/perl
 RUN rm -f /env/bin/perl5.30.0
 RUN rm -rf /env/conda-meta
-RUN rm -rf /env/lib/python3.7/site-packages/pip
 RUN rm -rf /env/share/man
 RUN rm -rf /env/share/terminfo
 RUN find /env -name '__pycache__' -type d -exec rm -rf '{}' '+'
