@@ -2,7 +2,7 @@ FROM condaforge/mambaforge:latest
 
 MAINTAINER Shiv Upadhyay <shivnupadhyay@gmail.com>
 
-COPY ./condarc ~/.condarc
+COPY ./condarc $HOME/.condarc
 COPY ./environment.yml /tmp/
 
 RUN mamba info -a && \
@@ -25,7 +25,7 @@ RUN python -m pip install -r requirements.txt
 
 RUN rm -f /tmp/environment.yml
 RUN rm -f requirements.txt
-RUN rm -rf ~/.cache/pip
+RUN rm -rf $HOME/.cache/pip
 RUN rm -rf /var/lib/apt/lists/*
 RUN mamba clean --all
 
