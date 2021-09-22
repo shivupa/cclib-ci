@@ -4,7 +4,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - ci-psi4
   - h5py=2.10
   - openbabel
   - pip
