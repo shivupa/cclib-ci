@@ -1,0 +1,7 @@
+# -*- mode: yaml -*-
+always_yes: true
+changeps1: false
+channel_priority: flexible
+quiet: false
+report_errors: true
+verbosity: 1
