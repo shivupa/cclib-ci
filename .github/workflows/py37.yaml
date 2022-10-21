@@ -22,7 +22,7 @@ jobs:
           images: |
             shivupa/cclib-ci
           tags: |
-            type=schedule,pattern={{date 'YYYYMMDD'}}
+            type=edge
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
