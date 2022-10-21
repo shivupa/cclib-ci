@@ -1,4 +1,4 @@
-FROM condaforge/mambaforge:latest as conda
+FROM condaforge/mambaforge:4.12.0-0 as conda
 
 LABEL authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
 
