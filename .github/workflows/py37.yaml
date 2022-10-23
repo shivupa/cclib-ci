@@ -15,14 +15,18 @@ jobs:
         name: Checkout
         uses: actions/checkout@v3
       -
-        name: Docker meta
+        name: Gather metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
           images: |
             shivupa/cclib-ci
+          flavor: |
+            latest=true
           tags: |
-            type=edge
+            type=schedule,pattern={{date 'YYYYMMDD'}},prefix=py37-
+            type=sha,prefix=py37-
+            type=edge,prefix=py37-
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -41,6 +45,4 @@ jobs:
         with:
           context: py37
           push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            shivupa/cclib-ci:py37
+          tags: ${{ steps.meta.outputs.tags }}
