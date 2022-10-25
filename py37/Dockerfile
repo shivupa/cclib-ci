@@ -10,15 +10,14 @@ RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create -f /tmp/environme
 
 RUN apt-get update && \
     apt-get install -y -qq --no-install-recommends \
+      build-essential \
       curl \
       gcc \
       git \
       swig \
-      wget \
     && rm -rf /var/lib/apt/lists/*
-RUN wget \
-    https://raw.githubusercontent.com/cclib/cclib/master/requirements.txt \
-    && cat requirements.txt
+RUN curl -o requirements.txt \
+    https://raw.githubusercontent.com/berquist/cclib/pyquante2/requirements.txt
 RUN conda run -p /env python -m pip install -r requirements.txt
 
 RUN rm -f /tmp/environment.yml && \
