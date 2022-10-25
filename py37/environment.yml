@@ -313,6 +313,7 @@ dependencies:
     - colorama==0.4.3
     - commonmark==0.9.1
     - pyscf==1.7.5
+    - qc-iodata
     - rich==7.1.0
     - ruamel-yaml
     - ruamel-yaml-clib==0.2.6
