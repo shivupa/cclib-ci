@@ -6,6 +6,9 @@ on:
       - 'main'
   schedule:
     - cron: '0 11 * * 2'
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
   docker:
@@ -31,5 +34,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: py36
-          push: true
+          push: ${{ github.event_name != 'pull_request'}}
           tags: shivupa/cclib-ci:py36
