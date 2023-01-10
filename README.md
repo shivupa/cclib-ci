@@ -11,3 +11,7 @@ Building the images:
 5. `sudo docker push shivupa/cclib-ci:py37`
 
 You may need to install https://github.com/docker/buildx first.
+
+## Running with https://github.com/nektos/act
+
+Your `.secrets` file (in `.env` format, just like setting a local variable in a `sh` shell script) must contain `GITHUB_TOKEN` for the Docker metadata action to work.  It is a [personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) that only needs repository read permissions to work.  If using a "fine-grained" token, no additional permissions beyond the defaults are necessary.

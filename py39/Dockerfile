@@ -1,34 +1,39 @@
-FROM condaforge/mambaforge:latest as conda
+FROM condaforge/mambaforge:22.9.0-2@sha256:a508942c46f370f2bebd94801d6094d0d5be77c4f36ad0edd608b118998fbca8 as install
 
-LABEL authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
+LABEL org.opencontainers.image.authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
 
-COPY ./condarc /root/.condarc
-COPY ./environment.yml /tmp/
+SHELL ["/bin/bash", "-l", "-i", "-c"]
+ENV SHELL /bin/bash
+
+ENV HOME /root
+WORKDIR "$HOME"
+
+COPY ./condarc "$HOME"/.condarc
+COPY ./environment.yml .
 
 RUN mamba info -a
-RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create -f /tmp/environment.yml -p /env
+RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create --file="$HOME"/environment.yml --name=cclib
 
 RUN apt-get update && \
-    apt-get install -y -qq \
+    apt-get install -y -qq --no-install-recommends \
+      build-essential \
       curl \
       gcc \
       git \
       swig \
-      wget
-RUN wget \
-    https://raw.githubusercontent.com/cclib/cclib/master/requirements.txt \
-    && cat requirements.txt
-RUN conda run -p /env python -m pip install -r requirements.txt
+    && rm -rf /var/lib/apt/lists/*
+RUN mamba init && \
+    echo "mamba activate cclib" >> "$HOME"/.bashrc && \
+    curl -o requirements.txt \
+    https://raw.githubusercontent.com/berquist/cclib/pyquante2/requirements.txt && \
+    mamba run -n cclib python -m pip install --no-cache-dir -r requirements.txt
 
-RUN rm -f /tmp/environment.yml
-RUN rm -f requirements.txt
-RUN rm -rf /root/.cache/pip
-RUN rm -rf /var/lib/apt/lists/*
+FROM install as test
 
-RUN rm -f /env/bin/perl
-RUN rm -f /env/bin/perl5.30.0
-RUN rm -rf /env/conda-meta
-RUN rm -rf /env/share/man
-RUN rm -rf /env/share/terminfo
-RUN find /env -name '__pycache__' -type d -exec rm -rf '{}' '+'
-RUN find /env -name '*.a' -type f -exec rm -f '{}' '+'
+SHELL ["/bin/bash", "-l", "-i", "-c"]
+WORKDIR "$HOME"
+RUN git clone https://github.com/cclib/cclib.git
+WORKDIR "$HOME"/cclib
+COPY test.bash .
+RUN ./test.bash
+WORKDIR "$HOME"
