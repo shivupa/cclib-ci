@@ -1,4 +1,5 @@
-name: py38img
+---
+name: build and push
 
 on:
   push:
@@ -13,6 +14,9 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pyver: ['py37', 'py38', 'py39', 'py310']
     steps:
       -
         name: Checkout
@@ -27,9 +31,9 @@ jobs:
           flavor: |
             latest=true
           tags: |
-            type=schedule,pattern={{date 'YYYYMMDD'}},prefix=py38-
-            type=sha,prefix=py38-
-            type=edge,prefix=py38-
+            type=schedule,pattern={{date 'YYYYMMDD'}},prefix=${{ matrix.pyver }}-
+            type=sha,prefix=${{ matrix.pyver }}-
+            type=edge,prefix=${{ matrix.pyver }}-
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -40,7 +44,7 @@ jobs:
         name: Build and export to Docker
         uses: docker/build-push-action@v3
         with:
-          context: py38
+          context: ${{ matrix.pyver }}
           push: false
           load: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -54,6 +58,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: py38
+          context: ${{ matrix.pyver }}
           push: ${{ github.event_name != 'pull_request'}}
           tags: ${{ steps.meta.outputs.tags }}
