@@ -5,7 +5,7 @@ channels:
   - defaults
 dependencies:
   - cython  # only needed for pyquante2
-  - h5py=3.1
+  - h5py
   - openbabel
   - pip
   - psi4
