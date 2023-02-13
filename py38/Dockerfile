@@ -25,7 +25,7 @@ RUN apt-get update && \
 RUN mamba init && \
     echo "mamba activate cclib" >> "$HOME"/.bashrc && \
     curl -o requirements.txt \
-    https://raw.githubusercontent.com/berquist/cclib/pyquante2/requirements.txt && \
+    https://raw.githubusercontent.com/cclib/cclib/master/requirements.txt && \
     mamba run -n cclib python -m pip install --no-cache-dir -r requirements.txt
 
 FROM install as test
