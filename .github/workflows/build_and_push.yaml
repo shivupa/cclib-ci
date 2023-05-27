@@ -42,7 +42,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
       -
         name: Build and export to Docker
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ${{ matrix.pyver }}
           push: false
@@ -57,7 +57,7 @@ jobs:
         when: ${{ secrets.DOCKERHUB_USERNAME and secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ${{ matrix.pyver }}
           push: ${{ github.event_name != 'pull_request'}}
