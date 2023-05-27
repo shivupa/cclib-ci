@@ -20,7 +20,7 @@ jobs:
           flavor: |
             latest=auto
           tags: |
-            type=ref,event=pull_request,prefix=py310-
+            type=ref,event=pr,prefix=py310-
             type=ref,event=push,prefix=py310-
       -
         name: Set up QEMU
