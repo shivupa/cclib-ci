@@ -20,8 +20,8 @@ jobs:
           flavor: |
             latest=auto
           tags: |
+            type=ref,event=branch,prefix=py310-
             type=ref,event=pr,prefix=py310-
-            type=ref,event=push,prefix=py310-
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
