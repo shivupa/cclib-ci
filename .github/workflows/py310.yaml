@@ -31,6 +31,17 @@ jobs:
             type=sha,prefix=py310-
             type=edge,prefix=py310-
       -
+        name: Gather metadata for branch
+        id: meta-branch
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            shivupa/cclib-ci
+          flavor: |
+            latest=auto
+          tags: |
+            type=ref,event=pull_request,prefix=py310-
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       -
@@ -45,15 +56,23 @@ jobs:
           load: true
           tags: ${{ steps.meta.outputs.tags }}
       -
-        name: Login to DockerHub
+        name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push on merge
         uses: docker/build-push-action@v3
         with:
           context: py310
           push: ${{ github.event_name != 'pull_request'}}
           tags: ${{ steps.meta.outputs.tags }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: py310
+          push: true
+          tags: ${{ steps.meta-branch.outputs.tags }}
