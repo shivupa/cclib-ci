@@ -1,0 +1,17 @@
+---
+channels:
+  - psi4
+  - conda-forge
+  - defaults
+dependencies:
+  - cython  # only needed for pyquante2
+  - h5py
+  - openbabel
+  - pip
+  - psi4
+  - pytest-cov
+  - pytest-shutil
+  - python=3.11
+  - pip:
+      - pyscf
+      - qc-iodata
