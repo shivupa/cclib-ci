@@ -8,6 +8,7 @@ dependencies:
   - h5py=3.1
   - openbabel
   - pip
+  - qcelemental>=0.26.0
   - psi4
   - pytest-cov
   - pytest-shutil

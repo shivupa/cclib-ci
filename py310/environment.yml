@@ -7,6 +7,7 @@ dependencies:
   - cython  # only needed for pyquante2
   - h5py
   - openbabel
+  - qcelemental>=0.26.0
   - pip
   - psi4
   - pytest-cov
