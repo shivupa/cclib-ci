@@ -13,6 +13,7 @@ on:
 
 jobs:
   docker:
+    name: build and push ${{ matrix.pyver }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
