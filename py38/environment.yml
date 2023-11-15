@@ -13,5 +13,7 @@ dependencies:
   - pytest-shutil
   - python=3.8
   - pip:
-      - pyscf
+      - pyscf<2.3
       - qc-iodata
+  # https://github.com/MolSSI/QCElemental/issues/312
+  - pydantic<2
