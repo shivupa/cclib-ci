@@ -16,7 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pyver: ['py37', 'py38', 'py39', 'py310']
+        pyver:
+          - py37
+          - py38
+          - py39
+          - py310
     steps:
       -
         name: Checkout
