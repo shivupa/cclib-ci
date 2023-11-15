@@ -14,4 +14,4 @@ shell:
     docker run -it shivupa/cclib-ci:{{ tag }} bash
 
 act:
-    act -W ./.github/workflows/{{ tag }}.yaml -P ubuntu-latest=catthehacker/ubuntu:act-latest
+    act -W ./.github/workflows/build_and_push.yaml -P ubuntu-latest=catthehacker/ubuntu:act-latest
