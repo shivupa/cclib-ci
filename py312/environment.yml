@@ -15,5 +15,3 @@ dependencies:
   - pip:
       - pyscf<2.3
       - qc-iodata
-  # https://github.com/MolSSI/QCElemental/issues/312
-  - pydantic<2
