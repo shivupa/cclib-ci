@@ -11,9 +11,6 @@ WORKDIR "$HOME"
 COPY ./condarc "$HOME"/.condarc
 COPY ./environment.yml .
 
-RUN mamba info -a
-RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create --file="$HOME"/environment.yml --name=cclib
-
 RUN apt-get update && \
     apt-get install -y -qq --no-install-recommends \
       build-essential \
@@ -22,6 +19,9 @@ RUN apt-get update && \
       git \
       swig \
     && rm -rf /var/lib/apt/lists/*
+
+RUN mamba info -a
+RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create --file="$HOME"/environment.yml --name=cclib
 RUN mamba init && \
     echo "mamba activate cclib" >> "$HOME"/.bashrc && \
     curl -o requirements.txt \
