@@ -60,11 +60,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+        if: ${{ github.event_name != 'pull_request'}}
       -
-        name: Build and push
+        name: Push to DockerHub
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.pyver }}
-          push: ${{ github.event_name != 'pull_request'}}
           tags: ${{ steps.meta.outputs.tags }}
+        if: ${{ github.event_name != 'pull_request'}}

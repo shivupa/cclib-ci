@@ -1,0 +1,11 @@
+---
+fail_fast: false
+repos:
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
+  - repo: https://github.com/Mateusz-Grzelinski/actionlint-py
+    rev: "v1.6.26.11"
+    hooks:
+      - id: actionlint
