@@ -1,6 +1,5 @@
 ---
 channels:
-  - psi4
   - conda-forge/label/libint_dev
   - conda-forge
   - defaults
@@ -9,10 +8,9 @@ dependencies:
   - h5py
   - openbabel
   - pip
+  - pip-tools
   - psi4
   - pytest-cov
   - pytest-shutil
+  - pytest-xdist
   - python=3.11
-  - pip:
-      - pyscf<2.3
-      - qc-iodata

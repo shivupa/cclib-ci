@@ -1,18 +1,17 @@
 ---
 channels:
-  - psi4
   - conda-forge/label/libint_dev
   - conda-forge
   - defaults
 dependencies:
+  - cmake  # needed for pyscf but not on earlier Python versions
   - cython  # only needed for pyquante2
   - h5py
   - openbabel
   - pip
+  - pip-tools
   - psi4
   - pytest-cov
   - pytest-shutil
+  - pytest-xdist
   - python=3.12
-  - pip:
-      - pyscf<2.3
-      - qc-iodata
