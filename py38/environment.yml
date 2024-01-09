@@ -1,6 +1,6 @@
 ---
 channels:
-  - psi4
+  - conda-forge/label/libint_dev
   - conda-forge
   - defaults
 dependencies:
@@ -8,12 +8,11 @@ dependencies:
   - h5py=3.1
   - openbabel
   - pip
+  - pip-tools
   - psi4
   - pytest-cov
   - pytest-shutil
+  - pytest-xdist
   - python=3.8
-  - pip:
-      - pyscf<2.3
-      - qc-iodata
   # https://github.com/MolSSI/QCElemental/issues/312
   - pydantic<2
