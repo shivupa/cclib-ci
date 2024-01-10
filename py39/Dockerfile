@@ -24,7 +24,7 @@ RUN mamba info -a
 RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create --file="$HOME"/environment.yml --name=cclib
 RUN mamba init && \
     echo "mamba activate cclib" >> "$HOME"/.bashrc && \
-    git clone -b pyscf-test https://github.com/berquist/cclib.git
+    git clone https://github.com/cclib/cclib.git
 WORKDIR "$HOME"/cclib
 # Installing the Open Babel Python package only works when it is able to link
 # against system-installed Open Babel compiled libraries.  The conda package
