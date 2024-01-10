@@ -24,7 +24,6 @@ jobs:
           - py39
           - py310
           - py311
-          - py312
     steps:
       -
         name: Checkout
@@ -89,5 +88,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.pyver }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
         if: ${{ github.event_name != 'pull_request'}}
