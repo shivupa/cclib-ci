@@ -17,8 +17,9 @@ RUN apt-get update && \
       swig \
     && rm -rf /var/lib/apt/lists/*
 
+ARG PYTHON_VERSION_DIR
 COPY ./condarc "$HOME"/.condarc
-COPY ./environment.yml .
+COPY "${PYTHON_VERSION_DIR}"/environment.yml .
 
 RUN mamba info -a
 RUN --mount=type=cache,target=/opt/conda/pkgs,sharing=locked \
@@ -39,7 +40,7 @@ FROM install as test
 
 SHELL ["/bin/bash", "-l", "-i", "-c"]
 WORKDIR "$HOME"/cclib
-COPY test.bash .
+COPY ./test.bash .
 RUN ./test.bash
 WORKDIR "$HOME"
 
