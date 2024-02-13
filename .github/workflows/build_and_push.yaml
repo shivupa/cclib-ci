@@ -71,6 +71,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.pyver }}
+          file: Dockerfile
           push: false
           load: true
           tags: ${{ steps.meta-test.outputs.tags }}
@@ -82,6 +83,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.pyver }}
+          file: Dockerfile
           push: false
           load: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -100,6 +102,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.pyver }}
+          file: Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
         if: ${{ github.event_name != 'pull_request'}}
