@@ -54,18 +54,18 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      -
-        name: Cache conda package download
-        uses: actions/cache@v3
-        with:
-          path: conda-pkgs
-          key: conda-pkgs-${{ hashFiles('Containerfile') }}
-      -
-        name: Inject conda-pkgs into Docker
-        uses: reproducible-containers/buildkit-cache-dance@v2.1.2
-        with:
-          cache-source: conda-pkgs
-          cache-target: /opt/conda/pkgs
+      # -
+      #   name: Cache conda package download
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: conda-pkgs
+      #     key: conda-pkgs-${{ hashFiles('Containerfile') }}
+      # -
+      #   name: Inject conda-pkgs into Docker
+      #   uses: reproducible-containers/buildkit-cache-dance@v2.1.2
+      #   with:
+      #     cache-source: conda-pkgs
+      #     cache-target: /opt/conda/pkgs
       -
         name: Build and export to Docker (test layer)
         uses: docker/build-push-action@v5
