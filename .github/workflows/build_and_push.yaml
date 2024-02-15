@@ -62,6 +62,8 @@ jobs:
           push: false
           load: true
           tags: ${{ steps.meta-test.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           target: test
       -
         name: Build and export to Docker (CI layer)
@@ -71,6 +73,8 @@ jobs:
           push: false
           load: true
           tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           target: ci
       -
         name: Login to DockerHub
