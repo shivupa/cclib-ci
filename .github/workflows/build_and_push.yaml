@@ -19,7 +19,6 @@ jobs:
     strategy:
       matrix:
         pyver:
-          - py37
           - py38
           - py39
           - py310
@@ -53,11 +52,20 @@ jobs:
             type=sha,prefix=${{ matrix.pyver }}-
             type=edge,prefix=${{ matrix.pyver }}-
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      -
+        name: Cache conda package download
+        uses: actions/cache@v3
+        with:
+          path: conda-pkgs
+          key: conda-pkgs-${{ hashFiles('Containerfile') }}
+      -
+        name: Inject conda-pkgs into Docker
+        uses: reproducible-containers/buildkit-cache-dance@v2.1.2
+        with:
+          cache-source: conda-pkgs
+          cache-target: /opt/conda/pkgs
       -
         name: Build and export to Docker (test layer)
         uses: docker/build-push-action@v5
@@ -66,6 +74,8 @@ jobs:
           push: false
           load: true
           tags: ${{ steps.meta-test.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           target: test
       -
         name: Build and export to Docker (CI layer)
@@ -75,6 +85,8 @@ jobs:
           push: false
           load: true
           tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           target: ci
       -
         name: Login to DockerHub

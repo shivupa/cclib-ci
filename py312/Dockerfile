@@ -21,7 +21,7 @@ COPY ./condarc "$HOME"/.condarc
 COPY ./environment.yml .
 
 RUN mamba info -a
-RUN --mount=type=cache,target=/opt/conda/pkgs mamba env create --file="$HOME"/environment.yml --name=cclib
+RUN --mount=type=cache,target=/opt/conda/pkgs,sharing=locked mamba env create --file="$HOME"/environment.yml --name=cclib
 RUN mamba init && \
     echo "mamba activate cclib" >> "$HOME"/.bashrc && \
     git clone https://github.com/cclib/cclib.git
