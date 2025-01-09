@@ -42,6 +42,10 @@ FROM install as test
 SHELL ["/bin/bash", "-l", "-i", "-c"]
 WORKDIR "$HOME"/cclib
 COPY ./test.bash .
+# Needed to fix slow test coverage performance with Python 3.12+:
+# https://github.com/cclib/cclib/issues/1347 and
+# https://github.com/nedbat/coveragepy/issues/1665
+ENV COVERAGE_CORE=sysmon
 RUN ./test.bash
 WORKDIR "$HOME"
 
