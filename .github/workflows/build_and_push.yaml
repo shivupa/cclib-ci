@@ -68,7 +68,7 @@ jobs:
       #     cache-target: /opt/conda/pkgs
       -
         name: Build and export to Docker (test layer)
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           build-args: |
             PYTHON_VERSION_DIR=${{ matrix.pyver }}
@@ -80,7 +80,7 @@ jobs:
           target: test
       -
         name: Build and export to Docker (CI layer)
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           build-args: |
             PYTHON_VERSION_DIR=${{ matrix.pyver }}
@@ -99,7 +99,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request'}}
       -
         name: Push to DockerHub
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           build-args: |
             PYTHON_VERSION_DIR=${{ matrix.pyver }}
