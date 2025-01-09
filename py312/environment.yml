@@ -2,7 +2,6 @@
 channels:
   - conda-forge/label/libint_dev
   - conda-forge
-  - defaults
 dependencies:
   - cmake  # needed for pyscf but not on earlier Python versions
   - cython  # only needed for pyquante2
