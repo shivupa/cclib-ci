@@ -1,4 +1,4 @@
-FROM docker.io/condaforge/mambaforge:22.9.0-2@sha256:a508942c46f370f2bebd94801d6094d0d5be77c4f36ad0edd608b118998fbca8 as install
+FROM docker.io/condaforge/mambaforge:22.9.0-2@sha256:a508942c46f370f2bebd94801d6094d0d5be77c4f36ad0edd608b118998fbca8 AS install
 
 LABEL org.opencontainers.image.authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
 
@@ -37,7 +37,7 @@ RUN sed -i '/openbabel/d' pyproject.toml && \
     mv requirements.txt $HOME
 RUN [ -f requirements-dev.txt ] && python -m pip install --no-cache-dir -r requirements-dev.txt
 
-FROM install as test
+FROM install AS test
 
 SHELL ["/bin/bash", "-l", "-i", "-c"]
 WORKDIR "$HOME"/cclib
@@ -49,7 +49,7 @@ ENV COVERAGE_CORE=sysmon
 RUN ./test.bash
 WORKDIR "$HOME"
 
-FROM install as ci
+FROM install AS ci
 
 SHELL ["/bin/bash", "-l", "-i", "-c"]
 WORKDIR $HOME
