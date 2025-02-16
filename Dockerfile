@@ -37,7 +37,7 @@ RUN sed -i '/openbabel/d' pyproject.toml && \
     mv requirements.txt $HOME
 RUN [ -f requirements-dev.txt ] && python -m pip install --no-cache-dir -r requirements-dev.txt
 
-FROM install as test
+FROM install AS test
 
 SHELL ["/bin/bash", "-l", "-i", "-c"]
 WORKDIR "$HOME"/cclib
@@ -49,7 +49,7 @@ ENV COVERAGE_CORE=sysmon
 RUN ./test.bash
 WORKDIR "$HOME"
 
-FROM install as ci
+FROM install AS ci
 
 SHELL ["/bin/bash", "-l", "-i", "-c"]
 WORKDIR $HOME
