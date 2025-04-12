@@ -5,7 +5,6 @@ channels:
 dependencies:
   - cmake  # needed for pyscf but not on earlier Python versions
   - cython  # only needed for pyquante2
-  - h5py
   - openbabel
   - pip
   - pip-tools
