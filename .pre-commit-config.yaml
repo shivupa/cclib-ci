@@ -5,7 +5,19 @@ repos:
     hooks:
       - id: check-hooks-apply
       - id: check-useless-excludes
-  - repo: https://github.com/Mateusz-Grzelinski/actionlint-py
-    rev: "v1.6.26.11"
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v5.0.0"
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-added-large-files
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
     hooks:
       - id: actionlint
+        additional_dependencies:
+          - "github.com/wasilibs/go-shellcheck/cmd/shellcheck@v0.10.0"
