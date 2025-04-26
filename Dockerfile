@@ -3,9 +3,9 @@ FROM docker.io/condaforge/mambaforge:22.9.0-2@sha256:a508942c46f370f2bebd94801d6
 LABEL org.opencontainers.image.authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
 
 SHELL ["/bin/bash", "-l", "-i", "-c"]
-ENV SHELL /bin/bash
+ENV SHELL=/bin/bash
 
-ENV HOME /root
+ENV HOME=/root
 WORKDIR "$HOME"
 
 RUN apt-get update && \
