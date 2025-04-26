@@ -34,8 +34,9 @@ WORKDIR "$HOME"/cclib
 RUN sed -i '/openbabel/d' pyproject.toml && \
     pip-compile --all-extras pyproject.toml && \
     python -m pip install --no-cache-dir -r requirements.txt && \
-    mv requirements.txt $HOME
-RUN [ -f requirements-dev.txt ] && python -m pip install --no-cache-dir -r requirements-dev.txt
+    mv requirements.txt $HOME && \
+    if [ -f requirements-bridges.txt ]; then python -m pip install --no-cache-dir -r requirements-bridges.txt; fi && \
+    if [ -f requirements-dev.txt ]; then python -m pip install --no-cache-dir -r requirements-dev.txt; fi
 
 FROM install AS test
 
