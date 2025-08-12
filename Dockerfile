@@ -37,7 +37,7 @@ RUN sed -i '/openbabel/d' pyproject.toml && \
     mv requirements.txt $HOME && \
     if [ -f requirements-bridges.txt ]; then python -m pip install --no-cache-dir -r requirements-bridges.txt; fi && \
     if [ -f requirements-dev.txt ]; then python -m pip install --no-cache-dir -r requirements-dev.txt; fi && \
-    python -m pip install openbabel-wheel
+    python -m pip install --compile --no-cache-dir openbabel-wheel
 
 FROM install AS test
 
