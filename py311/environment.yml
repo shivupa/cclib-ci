@@ -8,7 +8,6 @@ dependencies:
   - openbabel
   - pip
   - pip-tools
-  - libint2
   - psi4
   - pytest-cov
   - pytest-shutil
