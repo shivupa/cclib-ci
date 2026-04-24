@@ -14,6 +14,7 @@ RUN apt-get update && \
       curl \
       gcc \
       git \
+      gnupg \
       swig \
     && rm -rf /var/lib/apt/lists/*
 
