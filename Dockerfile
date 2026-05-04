@@ -1,4 +1,4 @@
-FROM docker.io/condaforge/mambaforge:22.9.0-2@sha256:a508942c46f370f2bebd94801d6094d0d5be77c4f36ad0edd608b118998fbca8 AS install
+FROM quay.io/condaforge/miniforge3:26.1.1-3@sha256:a2f0bbf13a13535e8f286c049a05da80701b63fa8cd268d3e4ec33e671203c71  as install
 
 LABEL org.opencontainers.image.authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
 
