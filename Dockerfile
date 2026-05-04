@@ -21,11 +21,11 @@ ARG PYTHON_VERSION_DIR
 COPY ./condarc "$HOME"/.condarc
 COPY "${PYTHON_VERSION_DIR}"/environment.yml .
 
-RUN mamba info -a
+RUN mamba info
 RUN --mount=type=cache,target=/opt/conda/pkgs,sharing=locked \
     mamba env create --file="$HOME"/environment.yml --name=cclib
-RUN mamba init && \
-    echo "mamba activate cclib" >> "$HOME"/.bashrc && \
+RUN mamba shell init
+RUN echo "mamba activate cclib" >> "$HOME"/.bashrc && \
     git clone https://github.com/cclib/cclib.git
 WORKDIR "$HOME"/cclib
 # Installing the Open Babel Python package only works when it is able to link
