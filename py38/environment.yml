@@ -7,7 +7,7 @@ dependencies:
   - libint=2.9.0=*_4
   - openbabel
   - pip
-  - pip-tools
+  - pip-tools<7.5.3
   - psi4
   - pytest-cov
   - pytest-shutil
