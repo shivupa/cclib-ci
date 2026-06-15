@@ -5,6 +5,9 @@ dependencies:
   - cython  # only needed for pyquante2
   - h5py=3.1
   - libint=2.9.0=*_4
+  # Wheels aren't built for this Python version.  The main repo CI hackily
+  # replaces this with `openbabel-wheel` which we avoid here for cleanliness
+  # reasons and the official conda package does work for this Python version.
   - openbabel
   - pip
   - pip-tools

@@ -5,7 +5,6 @@ dependencies:
   - cython  # only needed for pyquante2
   - h5py
   - libint=2.9.0=*_4
-  - openbabel
   - pip
   - pip-tools
   - psi4

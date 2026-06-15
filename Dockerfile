@@ -28,11 +28,7 @@ RUN mamba shell init
 RUN echo "mamba activate cclib" >> "$HOME"/.bashrc && \
     git clone https://github.com/cclib/cclib.git
 WORKDIR "$HOME"/cclib
-# Installing the Open Babel Python package only works when it is able to link
-# against system-installed Open Babel compiled libraries.  The conda package
-# provides both.
-RUN sed -i '/openbabel/d' pyproject.toml && \
-    pip-compile --all-extras pyproject.toml && \
+RUN pip-compile --all-extras pyproject.toml && \
     python -m pip install --no-cache-dir -r requirements.txt && \
     mv requirements.txt $HOME && \
     if [ -f requirements-bridges.txt ]; then python -m pip install --no-cache-dir -r requirements-bridges.txt; fi && \
