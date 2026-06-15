@@ -14,6 +14,8 @@ RUN apt-get update && \
       curl \
       gcc \
       git \
+      gpg \
+      openssh-client \
       swig \
     && rm -rf /var/lib/apt/lists/*
 
