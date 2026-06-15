@@ -9,9 +9,6 @@ dependencies:
   - pip
   - pip-tools<7.5.3
   - psi4
-  - pytest-cov
-  - pytest-shutil
-  - pytest-xdist
   - python=3.8
   # https://github.com/MolSSI/QCElemental/issues/312
   - pydantic<2
