@@ -1,4 +1,4 @@
-FROM quay.io/condaforge/miniforge3:26.1.1-3@sha256:a2f0bbf13a13535e8f286c049a05da80701b63fa8cd268d3e4ec33e671203c71  as install
+FROM quay.io/condaforge/miniforge3:26.1.1-3@sha256:a2f0bbf13a13535e8f286c049a05da80701b63fa8cd268d3e4ec33e671203c71 AS install
 
 LABEL org.opencontainers.image.authors="Shiv Upadhyay <shivnupadhyay@gmail.com>, Eric Berquist <eric.berquist@gmail.com>"
 
