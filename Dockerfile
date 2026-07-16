@@ -30,9 +30,16 @@ RUN mamba shell init
 RUN echo "mamba activate cclib" >> "$HOME"/.bashrc && \
     git clone https://github.com/cclib/cclib.git
 WORKDIR "$HOME"/cclib
-COPY ./patch_for_openbabel.bash /tmp/patch_for_openbabel.bash
-RUN /tmp/patch_for_openbabel.bash && \
-    pip-compile --all-extras pyproject.toml && \
+# The Open Babel PyPI package only ships wheels for Python >= 3.10.  For older
+# versions it is provided by conda (see environment.yml), so compile cclib's
+# "-no-openbabel" extras and let conda supply Open Babel instead of pulling the
+# (wheel-less) PyPI package.
+RUN if [ "$(python -c 'import sys; print(sys.version_info.minor)')" -lt 10 ]; then \
+        EXTRAS="--extra dev-no-openbabel"; \
+    else \
+        EXTRAS="--all-extras"; \
+    fi && \
+    pip-compile $EXTRAS pyproject.toml && \
     python -m pip install --no-cache-dir -r requirements.txt && \
     mv requirements.txt $HOME && \
     if [ -f requirements-bridges.txt ]; then python -m pip install --no-cache-dir -r requirements-bridges.txt; fi && \
