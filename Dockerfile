@@ -31,11 +31,13 @@ RUN echo "mamba activate cclib" >> "$HOME"/.bashrc && \
     git clone https://github.com/cclib/cclib.git
 WORKDIR "$HOME"/cclib
 # The Open Babel PyPI package only ships wheels for Python >= 3.10.  For older
-# versions it is provided by conda (see environment.yml), so compile cclib's
-# "-no-openbabel" extras and let conda supply Open Babel instead of pulling the
-# (wheel-less) PyPI package.
+# versions it is provided by conda (see environment.yml), so compile every leaf
+# extra except "openbabel" and let conda supply Open Babel instead of pulling
+# the (wheel-less) PyPI package.  The leaf extras are named explicitly rather
+# than via the "dev-no-openbabel" meta-extra because pip-compile cannot expand
+# self-referential (cclib[...]) extras for the unpublished local project.
 RUN if [ "$(python -c 'import sys; print(sys.version_info.minor)')" -lt 10 ]; then \
-        EXTRAS="--extra dev-no-openbabel"; \
+        EXTRAS="--extra bridges-no-openbabel --extra docs --extra test-infrastructure"; \
     else \
         EXTRAS="--all-extras"; \
     fi && \
@@ -43,7 +45,8 @@ RUN if [ "$(python -c 'import sys; print(sys.version_info.minor)')" -lt 10 ]; th
     python -m pip install --no-cache-dir -r requirements.txt && \
     mv requirements.txt $HOME && \
     if [ -f requirements-bridges.txt ]; then python -m pip install --no-cache-dir -r requirements-bridges.txt; fi && \
-    if [ -f requirements-dev.txt ]; then python -m pip install --no-cache-dir -r requirements-dev.txt; fi
+    if [ -f requirements-dev.txt ]; then python -m pip install --no-cache-dir -r requirements-dev.txt; fi && \
+    python -m pip install --no-cache-dir --no-deps -e .
 
 FROM install AS test
 
